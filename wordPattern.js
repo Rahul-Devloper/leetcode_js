@@ -43,31 +43,46 @@
 // All the words in s are separated by a single space.
 
 /**
- * @param {string} pattern
- * @param {string} s
- * @return {boolean}
+ * Function to check if a string follows a given pattern
+ * Similar to isomorphic strings, but works with words instead of characters
+ * 
+ * @param {string} pattern - The pattern string (e.g., "abba")
+ * @param {string} s - Space-separated words to check against pattern
+ * @return {boolean} - Returns true if string follows pattern, false otherwise
  */
 var wordPattern = function (pattern, s) {
-    const patternMap = new Map()
-    const sMap = new Map()
+    // Create two maps to track pattern and word positions
+    const patternMap = new Map()  // Maps pattern chars to their last position
+    const sMap = new Map()        // Maps words to their last position
 
+    // Split input string into array of words
     const splitS = s.split(" ")
+    
+    // First check: pattern length must match number of words
     if (pattern.length !== splitS.length) return false
 
+    // Iterate through pattern and words simultaneously
     for (let i = 0; i < pattern.length; i++) {
-
+        // If we haven't seen this pattern character before,
+        // map it to current position
         if (!patternMap.has(pattern[i])) {
             patternMap.set(pattern[i], i)
         }
 
+        // If we haven't seen this word before,
+        // map it to current position
         if (!sMap.has(splitS[i])) {
             sMap.set(splitS[i], i)
         }
 
+        // Compare positions - they must match for valid pattern
+        // This ensures one-to-one mapping between patterns and words
         if (patternMap.get(pattern[i]) !== sMap.get(splitS[i])) {
             return false
         }
     }
 
+    // If we've made it through the entire pattern without returning false,
+    // the string follows the pattern
     return true
 };
