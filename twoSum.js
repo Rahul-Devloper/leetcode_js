@@ -15,19 +15,29 @@
 // Space complexity: O(n)
 
 /**
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
+ * Function to find two numbers in array that add up to target
+ * Returns indices of the two numbers
+ * 
+ * @param {number[]} nums - Array of integers to search through
+ * @param {number} target - Target sum we're looking for
+ * @return {number[]} - Returns array containing indices of the two numbers
  */
 var twoSum = function(nums, target) {
-
-const map = new Map()
+    // Create a Map to store numbers and their indices
+    const map = new Map()
    
-for(let i = 0; i < nums.length; i++){
-    let newValue = target - nums[i]
-    if(map.has(newValue)){
-       return [map.get(newValue),i]
+    // Iterate through the array once
+    for(let i = 0; i < nums.length; i++){
+        // Calculate the complement we need to reach target
+        let complement = target - nums[i]
+
+        // If complement exists in map, we found our pair
+        if(map.has(complement)){
+            // Return array with both indices: [complement's index, current index]
+            return [map.get(complement), i]
+        }
+
+        // Store current number and its index for future lookups
+        map.set(nums[i], i)
     }
-    map.set(nums[i], i)
-  }
 };
