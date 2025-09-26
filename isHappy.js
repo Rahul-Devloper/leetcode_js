@@ -29,26 +29,51 @@
 // 1 <= n <= 231 - 1
 
 /**
- * @param {number} n
- * @return {boolean}
+ * Determines if a number is "happy" - meaning it eventually reaches 1 after repeatedly 
+ * summing the squares of its digits
+ * 
+ * @param {number} n - Input number to check
+ * @return {boolean} - Returns true if number is happy, false otherwise
  */
 var isHappy = function(n) {
+    // Set to keep track of numbers we've seen to detect cycles
     let seen = new Set()
 
+    /**
+     * Helper function to calculate sum of squared digits
+     * Example: getSum(19)
+     * 1. digit = 19 % 10 = 9, sum = 0 + 81 = 81, num = 1
+     * 2. digit = 1 % 10 = 1, sum = 81 + 1 = 82, num = 0
+     * Returns 82
+     * 
+     * Example for Math.floor:
+     * If num = 68, after digit = num % 10 = 8, num = Math.floor(68 / 10) = 6
+     * Math.floor(68 / 10) returns 6 by removing the decimal part.
+     * 
+     * @param {number} num - Number to process
+     * @return {number} - Sum of squared digits
+     */
     function getSum(num){
         let sum = 0;
         while (num > 0) {
+            // Get rightmost digit using modulo
             let digit = num % 10;
+            // Add square of digit to sum
             sum += digit * digit;
+            // Remove rightmost digit
             num = Math.floor(num / 10);
         }
-
         return sum
     }
-    // console.log(realDigits)
-       while(n !== 1 && !seen.has(n)){
+
+    // Continue process until either:
+    // 1. We reach 1 (happy number)
+    // 2. We see a number we've seen before (cycle detected - not happy)
+    while(n !== 1 && !seen.has(n)){
         seen.add(n)
         n = getSum(n)
     }
+
+    // If we reached 1, it's happy; if we found a cycle, it's not
     return n == 1
 };
