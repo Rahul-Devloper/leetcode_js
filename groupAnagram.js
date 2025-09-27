@@ -36,16 +36,32 @@
 
 
 /**
- * @param {string[]} strs
- * @return {string[][]}
+ * Groups strings that are anagrams of each other
+ * Two strings are anagrams if they have the same characters in different orders
+ * 
+ * @param {string[]} strs - Array of strings to group
+ * @return {string[][]} - Array of arrays containing grouped anagrams
  */
 var groupAnagrams = function (strs) {
+    // Create a Map to store sorted strings as keys and their anagrams as values
     const map = new Map()
+
+    // Process each string in the input array
     for (let char of strs) {
+        // Create a sorted version of the string to use as key
+        // Example: 'eat' becomes 'aet'
+        // This ensures all anagrams have the same key
         let sortedChar = char.split('').sort().join('')
-        console.log(sortedChar)
+
+        // If we haven't seen this sorted pattern before,
+        // initialize an empty array for this group
         if (!map.has(sortedChar)) map.set(sortedChar, [])
+
+        // Add the original string to its anagram group
         map.get(sortedChar).push(char)
     }
+
+    // Convert Map values to array and return
+    // Example output: [["bat"],["nat","tan"],["ate","eat","tea"]]
     return Array.from(map.values())
 };
