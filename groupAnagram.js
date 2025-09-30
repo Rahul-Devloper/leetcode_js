@@ -32,7 +32,6 @@
 // 1 <= strs.length <= 104
 // 0 <= strs[i].length <= 100
 // strs[i] consists of lowercase English letters.
- 
 
 
 /**
@@ -55,7 +54,7 @@ var groupAnagrams = function (strs) {
 
         // If we haven't seen this sorted pattern before,
         // initialize an empty array for this group
-        if (!map.has(sortedChar)) map.set(sortedChar, [])
+          if (!map.has(sortedChar)) map.set(sortedChar, [])
 
         // Add the original string to its anagram group
         map.get(sortedChar).push(char)
