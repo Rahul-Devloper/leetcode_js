@@ -55,47 +55,49 @@
 // actions[i] is one of "TimeLimitedCache", "set", "get" and "count"
 // First action is always "TimeLimitedCache" and must be executed immediately, with a 0-millisecond delay
 
-var TimeLimitedCache = function() {
-    cache = new Map()
-};
+var TimeLimitedCache = function () {
+  cache = new Map()
+}
 
-/** 
+/**
  * @param {number} key
  * @param {number} value
  * @param {number} duration time until expiration in ms
  * @return {boolean} if un-expired key already existed
  */
-TimeLimitedCache.prototype.set = function(key, value, duration) {
-    
-    let exists = cache.has(key)
-    if(exists){
-        clearTimeout(cache.get(key).timer)
-    }
-    cache.set(key, {value, timer: setTimeout(()=>cache.delete(key), duration)})
-    return exists
-};
+TimeLimitedCache.prototype.set = function (key, value, duration) {
+  let exists = cache.has(key)
+  if (exists) {
+    clearTimeout(cache.get(key).timer)
+  }
+  cache.set(key, {
+    value,
+    timer: setTimeout(() => cache.delete(key), duration),
+  })
+  return exists
+}
 
-/** 
+/**
  * @param {number} key
  * @return {number} value associated with key
  */
-TimeLimitedCache.prototype.get = function(key) {
-    // const now = Date.now()
-    // if(!cache.has(key)) return -1
-    // if(now >= cache.get(key).timer){
-    //     cache.delete(key)
-    //     return -1
-    // }
-    // return cache.get(key)?.value
-    return cache.has(key) ? cache.get(key).value : -1;
-};
+TimeLimitedCache.prototype.get = function (key) {
+  // const now = Date.now()
+  // if(!cache.has(key)) return -1
+  // if(now >= cache.get(key).timer){
+  //     cache.delete(key)
+  //     return -1
+  // }
+  // return cache.get(key)?.value
+  return cache.has(key) ? cache.get(key).value : -1
+}
 
-/** 
+/**
  * @return {number} count of non-expired keys
  */
-TimeLimitedCache.prototype.count = function() {
-    return cache.size
-};
+TimeLimitedCache.prototype.count = function () {
+  return cache.size
+}
 
 /**
  * const timeLimitedCache = new TimeLimitedCache()
