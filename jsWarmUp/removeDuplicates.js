@@ -41,18 +41,30 @@
 // It does not matter what you leave beyond the returned k (hence they are underscores).
 
 /**
- * @param {number[]} nums
- * @return {number}
+ * Remove duplicates from a sorted array in-place
+ * Each unique element appears only once, maintaining relative order
+ * 
+ * @param {number[]} nums - Sorted integer array (non-decreasing order)
+ * @return {number} - Number of unique elements (k)
  */
 var removeDuplicates = function(nums) {
+    // Left pointer marks the position where next unique element should be placed
     let left = 0
     
-    for(let right = 1; right < nums.length; right ++){
+    // Right pointer scans through the array starting from index 1
+    for(let right = 1; right < nums.length; right++){
+        // If current element (right) is different from element at left pointer,
+        // we found a new unique element
         if(nums[right] !== nums[left]){
-            left ++
+            // Move left pointer to next position
+            left++
+            // Place the unique element at the new left position
             nums[left] = nums[right]
         }
+        // If elements are equal, skip the duplicate and continue scanning
     }
+    
+    // Return count of unique elements
+    // left is 0-indexed, so add 1 to get the count
     return left + 1
-
 };
