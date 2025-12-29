@@ -49,17 +49,16 @@ var maxArea = function(height) {
         best = 0
 // area = width x breadth -> breadth is min of both pointers, if you take max it will not look like a rectangle
     while(left < right){
-        let breadth = Math.min(height[left], height[right])
-        let width = right - left
-        let area = width * breadth
-        best = Math.max(best, area)
+      let breadth = Math.min(height[left], height[right])
+      let width = right - left
+      let area = width * breadth
+      best = Math.max(best, area)
 
-        if(height[left] < height[right]){
-            left ++
-        }
-        else{
-            right --
-        }
+      if (height[left] < height[right]) {
+        left++
+      } else {
+        right--
+      }
     }
     return best
 };
