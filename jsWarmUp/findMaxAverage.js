@@ -48,3 +48,5 @@ var findMaxAverage = function(nums, k) {
     }
     return average
 };
+
+findMaxAverage([1, 12, -5, -6, 50, 3], 4)
